@@ -1,9 +1,11 @@
-<script setup lang="ts" generic="TData, TValue">
+<script setup lang="ts" generic="TValue">
 import type {
 	ColumnDef,
 	SortingState,
 	ColumnFiltersState,
+	VisibilityState,
 } from "@tanstack/vue-table";
+import type { Todo } from "@/types/todo";
 import { ref } from "vue";
 import {
 	Table,
@@ -19,17 +21,20 @@ import {
 	getCoreRowModel,
 	getSortedRowModel,
 	getFilteredRowModel,
+	getPaginationRowModel,
 } from "@tanstack/vue-table";
 import { valueUpdater } from "@/lib/utils";
 import TableFilters from "@/components/home/TableFilters.vue";
+import TablePagination from "@/components/home/TablePagination.vue";
 
 const props = defineProps<{
-	columns: ColumnDef<TData, TValue>[];
-	data: TData[];
+	columns: ColumnDef<Todo, TValue>[];
+	data: Todo[];
 }>();
 
 const sorting = ref<SortingState>([]);
 const columnFilters = ref<ColumnFiltersState>([]);
+const columnVisibility = ref<VisibilityState>({});
 const rowSelection = ref({});
 
 const table = useVueTable({
@@ -42,9 +47,12 @@ const table = useVueTable({
 	getCoreRowModel: getCoreRowModel(),
 	getSortedRowModel: getSortedRowModel(),
 	getFilteredRowModel: getFilteredRowModel(),
+	getPaginationRowModel: getPaginationRowModel(),
 	onSortingChange: (updaterOrValue) => valueUpdater(updaterOrValue, sorting),
 	onColumnFiltersChange: (updaterOrValue) =>
 		valueUpdater(updaterOrValue, columnFilters),
+	onColumnVisibilityChange: (updaterOrValue) =>
+		valueUpdater(updaterOrValue, columnVisibility),
 	onRowSelectionChange: (updaterOrValue) =>
 		valueUpdater(updaterOrValue, rowSelection),
 	state: {
@@ -56,6 +64,9 @@ const table = useVueTable({
 		},
 		get columnFilters() {
 			return columnFilters.value;
+		},
+		get columnVisibility() {
+			return columnVisibility.value;
 		},
 	},
 });
@@ -106,4 +117,5 @@ const table = useVueTable({
 			</Table>
 		</div>
 	</div>
+	<TablePagination :table="table" class="mt-2" />
 </template>

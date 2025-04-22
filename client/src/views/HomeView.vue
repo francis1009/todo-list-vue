@@ -30,6 +30,34 @@ async function getData(): Promise<Todo[]> {
 			priority: "low",
 			createdAt: new Date(),
 		},
+		{
+			id: "4",
+			task: "A very long task name that exceeds the width of the column and messes up the layout and then it goes to the next line and it is very annoying and I don't like it at all and I want to fix it but I don't know how to do it",
+			status: "in-progress",
+			priority: "high",
+			createdAt: new Date(),
+		},
+		{
+			id: "5",
+			task: "Do something else",
+			status: "todo",
+			priority: "medium",
+			createdAt: new Date(),
+		},
+		{
+			id: "6",
+			task: "Do yet another thing",
+			status: "completed",
+			priority: "low",
+			createdAt: new Date(),
+		},
+		{
+			id: "7",
+			task: "Do something else",
+			status: "todo",
+			priority: "high",
+			createdAt: new Date(),
+		},
 	];
 }
 
@@ -40,8 +68,8 @@ onMounted(async () => {
 
 <template>
 	<div class="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-		<div class="flex items-center justify-center space-y-2">
-			<div>
+		<div class="flex justify-center space-y-2">
+			<div class="w-4/5">
 				<h2 class="text-2xl font-bold tracking-tight">Welcome!</h2>
 				<p class="text-muted-foreground mb-8">
 					Here is a list of all your tasks. You can add, edit, and delete tasks

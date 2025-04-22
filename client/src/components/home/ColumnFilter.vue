@@ -1,6 +1,7 @@
-<script setup lang="ts" generic="TData">
+<script setup lang="ts" generic="TValue">
 import { computed, type Component } from "vue";
 import type { Column } from "@tanstack/vue-table";
+import type { Todo } from "@/types/todo";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,8 +22,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { CirclePlus, Check } from "lucide-vue-next";
 
-interface PopoverFilterProps {
-	column?: Column<TData, any>;
+interface ColumnFilterProps {
+	column?: Column<Todo, TValue>;
 	title?: string;
 	options: {
 		label: string;
@@ -30,7 +31,7 @@ interface PopoverFilterProps {
 		icon?: Component;
 	}[];
 }
-const props = defineProps<PopoverFilterProps>();
+const props = defineProps<ColumnFilterProps>();
 
 const facets = props.column?.getFacetedUniqueValues();
 const selectedValues = computed(

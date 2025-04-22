@@ -4,8 +4,6 @@ This is a simple Todo List web application built as a monorepo for local develop
 
 **This project is intended for local development only and is not set up for deployment.**
 
----
-
 ## Tech Stack
 
 This project utilizes a modern tech stack within a `pnpm` monorepo structure:
@@ -27,28 +25,27 @@ This project utilizes a modern tech stack within a `pnpm` monorepo structure:
 - **Query Builder:** [Kysely](https://kysely.dev/) (with `kysely-d1` dialect)
 - **Language:** TypeScript
 
----
-
 ## Prerequisites
 
 Before you begin, ensure you have the following installed on your system:
 
 1.  **Node.js:** (LTS version recommended) - [Download Node.js](https://nodejs.org/)
+
     ```bash
     node -v
     ```
 2.  **pnpm:** (Used for package management in this monorepo)
+
     ```bash
     npm install -g pnpm
     pnpm -v
     ```
 3.  **Wrangler CLI:** (Cloudflare's CLI for Workers development)
+
     ```bash
     npm install -g wrangler
     wrangler --version
     ```
-
----
 
 ## Getting Started
 
@@ -72,6 +69,7 @@ Follow these steps to set up the project locally:
 
 3.  **Install Backend Dependencies:**
     Navigate into the `server` directory and install its dependencies.
+
     ```bash
     cd server
     pnpm install
@@ -80,13 +78,13 @@ Follow these steps to set up the project locally:
 
 <!-- 4.  **Set Up Local Database:**
     Apply the necessary database migrations to the local D1 simulation (SQLite file). This command needs to be run from the **root** directory but targets the `api` package.
+
     ```bash
     # This runs the 'db:migrate' script defined in packages/api/package.json
     pnpm --filter api db:migrate
     ```
-    *Note: You only need to run this initially and whenever you add new migration files to `packages/api/migrations`.* -->
 
----
+    *Note: You only need to run this initially and whenever you add new migration files to `packages/api/migrations`.* -->
 
 ## Running the Application (Development Mode)
 
@@ -95,21 +93,25 @@ Since this is a monorepo with a separate frontend and backend, you need to run b
 **Terminal 1: Start the Backend API Server**
 
 - Navigate to the `server` directory and start the backend development server using `wrangler dev`.
+
   ```bash
   cd server
   # Assuming you have a 'dev' script in server/package.json like: "dev": "wrangler dev"
   pnpm dev
   ```
+  
 - The API server will typically start on `http://localhost:8787`.
 
 **Terminal 2: Start the Frontend Development Server**
 
 - Navigate to the `client` directory and start the frontend development server using Vite.
+
   ```bash
   cd client
   # Assuming you have a 'dev' script in client/package.json like: "dev": "vite"
   pnpm dev
   ```
+
 - The frontend server will typically start on `http://localhost:5173`.
 
 **Access the Application:**

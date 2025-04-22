@@ -6,7 +6,7 @@ import {
 	MoveDown,
 	MoveRight,
 	MoveUp,
-    Timer,
+	Timer,
 } from "lucide-vue-next";
 
 export const statuses = [
@@ -36,7 +36,7 @@ export const priorities = [
 	{
 		value: "low",
 		label: "Low",
-		icon: h(MoveUp),
+		icon: h(MoveDown),
 	},
 	{
 		value: "medium",
@@ -46,6 +46,6 @@ export const priorities = [
 	{
 		value: "high",
 		label: "High",
-		icon: h(MoveDown),
+		icon: h(MoveUp),
 	},
 ];

@@ -1,14 +1,16 @@
-<script setup lang="ts" generic="TData">
+<script setup lang="ts">
 import { computed } from "vue";
 import type { Table } from "@tanstack/vue-table";
+import type { Todo } from "@/types/todo";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-vue-next";
 import { statuses, priorities } from "@/types/fields";
-import PopoverFilter from "@/components/home/PopoverFilter.vue";
+import ColumnFilter from "@/components/home/ColumnFilter.vue";
+import VisibilityFilter from "@/components/home/VisibilityFilter.vue";
 
 interface TableFiltersProps {
-	table: Table<TData>;
+	table: Table<Todo>;
 }
 const props = defineProps<TableFiltersProps>();
 
@@ -29,14 +31,14 @@ const isFiltered = computed(() => {
 				@input="table.getColumn('task')?.setFilterValue($event.target.value)"
 			/>
 
-			<PopoverFilter
+			<ColumnFilter
 				v-if="table.getColumn('status')"
 				:column="table.getColumn('status')"
 				title="Status"
 				:options="statuses"
 			/>
 
-			<PopoverFilter
+			<ColumnFilter
 				v-if="table.getColumn('priority')"
 				:column="table.getColumn('priority')"
 				title="Priority"
@@ -52,6 +54,8 @@ const isFiltered = computed(() => {
 				Reset
 				<X class="ml-2 h-4 w-4" />
 			</Button>
+
+			<VisibilityFilter :table="table" />
 		</div>
 	</div>
 </template>

@@ -1,12 +1,6 @@
 import { h } from "vue";
 import type { ColumnDef } from "@tanstack/vue-table";
-import {
-	ChevronsUpDown,
-	MoveUp,
-	MoveRight,
-	MoveDown,
-	MoreHorizontal,
-} from "lucide-vue-next";
+import { ChevronsUpDown, MoreHorizontal } from "lucide-vue-next";
 
 import type { Todo } from "@/types/todo";
 import { statuses, priorities } from "@/types/fields";
@@ -16,8 +10,6 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -29,14 +21,15 @@ export const columns: ColumnDef<Todo>[] = [
 				modelValue:
 					table.getIsAllPageRowsSelected() ||
 					(table.getIsSomePageRowsSelected() && "indeterminate"),
-				"onUpdate:modelValue": (value: any) =>
+				"onUpdate:modelValue": (value: string | boolean) =>
 					table.toggleAllPageRowsSelected(!!value),
 				ariaLabel: "Select all",
 			}),
 		cell: ({ row }) =>
 			h(Checkbox, {
 				modelValue: row.getIsSelected(),
-				"onUpdate:modelValue": (value: any) => row.toggleSelected(!!value),
+				"onUpdate:modelValue": (value: string | boolean) =>
+					row.toggleSelected(!!value),
 				ariaLabel: "Select row",
 			}),
 		enableSorting: false,
@@ -56,6 +49,7 @@ export const columns: ColumnDef<Todo>[] = [
 		},
 		cell: ({ row }) =>
 			h("div", { class: "font-medium" }, `TASK-${row.getValue("id")}`),
+		enableHiding: false,
 	},
 	{
 		accessorKey: "task",
@@ -69,7 +63,7 @@ export const columns: ColumnDef<Todo>[] = [
 				() => ["Task", h(ChevronsUpDown, { class: "ml-2 h-4 w-4" })],
 			);
 		},
-		cell: ({ row }) => h("div", { class: "" }, row.getValue("task")),
+		cell: ({ row }) => h("div", { class: "text-wrap" }, row.getValue("task")),
 	},
 	{
 		accessorKey: "status",
@@ -124,9 +118,7 @@ export const columns: ColumnDef<Todo>[] = [
 	{
 		id: "actions",
 		enableHiding: false,
-		cell: ({ row }) => {
-			const todo = row.original; // Get the original Todo data
-
+		cell: () => {
 			return h(
 				"div",
 				{ class: "relative" },
