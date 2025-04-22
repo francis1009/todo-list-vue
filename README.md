@@ -2,11 +2,11 @@
 
 This is a simple Todo List web application built as a monorepo for local development and experimentation. It features a Vue frontend interacting with a Hono backend running on a locally simulated Cloudflare Workers environment with a local D1 database.
 
-**✨ This project is intended for local development only and is not set up for deployment. ✨**
+**This project is intended for local development only and is not set up for deployment.**
 
 ---
 
-## 🚀 Tech Stack
+## Tech Stack
 
 This project utilizes a modern tech stack within a `pnpm` monorepo structure:
 
@@ -16,6 +16,7 @@ This project utilizes a modern tech stack within a `pnpm` monorepo structure:
 - **State Management:** [Pinia](https://pinia.vuejs.org/)
 - **Data Fetching/Server Cache:** [Tanstack Query (Vue Query)](https://tanstack.com/query/latest/docs/vue/overview)
 - **UI Components:** [Shadcn-vue](https://www.shadcn-vue.com/) (using [Tailwind CSS](https://tailwindcss.com/))
+- **Data Table Management:** [TanStack Table (Vue Table)](https://tanstack.com/table/v8/docs/guide/introduction)
 - **Language:** TypeScript
 
 **Backend (`/server`):**
@@ -28,7 +29,7 @@ This project utilizes a modern tech stack within a `pnpm` monorepo structure:
 
 ---
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed on your system:
 
@@ -49,7 +50,7 @@ Before you begin, ensure you have the following installed on your system:
 
 ---
 
-## ⚙️ Getting Started
+## Getting Started
 
 Follow these steps to set up the project locally:
 
@@ -87,7 +88,7 @@ Follow these steps to set up the project locally:
 
 ---
 
-## ▶️ Running the Application (Development Mode)
+## Running the Application (Development Mode)
 
 Since this is a monorepo with a separate frontend and backend, you need to run both development servers concurrently. **Open two separate terminal windows/tabs** in the root project directory.
 
