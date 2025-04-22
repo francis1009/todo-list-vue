@@ -89,6 +89,9 @@ export const columns: ColumnDef<Todo>[] = [
 				h("span", { class: "capitalize" }, status.label),
 			]);
 		},
+		filterFn: (row, id, value) => {
+			return value.includes(row.getValue(id));
+		},
 	},
 	{
 		accessorKey: "priority",
@@ -113,6 +116,9 @@ export const columns: ColumnDef<Todo>[] = [
 					h(priority.icon, { class: "mr-2 h-4 w-4 text-muted-background" }),
 				h("span", { class: "capitalize" }, priority.label),
 			]);
+		},
+		filterFn: (row, id, value) => {
+			return value.includes(row.getValue(id));
 		},
 	},
 	{
