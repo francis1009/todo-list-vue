@@ -24,7 +24,7 @@
     {
       "binding": "DB",
       "database_name": "todo-list-db",
-      "database_id": ""
+      "database_id": "placeholder"
     }
   ]
   // "ai": {

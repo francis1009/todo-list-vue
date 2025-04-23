@@ -33,12 +33,14 @@ Before you begin, ensure you have the following installed on your system:
     ```bash
     node -v
     ```
+
 2.  **pnpm:** (Used for package management in this monorepo)
 
     ```bash
     npm install -g pnpm
     pnpm -v
     ```
+
 3.  **Wrangler CLI:** (Cloudflare's CLI for Workers development)
 
     ```bash
@@ -75,15 +77,16 @@ Follow these steps to set up the project locally:
     cd ..
     ```
 
-<!-- 4.  **Set Up Local Database:**
-    Apply the necessary database migrations to the local D1 simulation (SQLite file). This command needs to be run from the **root** directory but targets the `api` package.
+4.  **Set Up Local Database:**
+    This initializes the necessary tables on your local Cloudflare D1 instance.
 
     ```bash
-    # This runs the 'db:migrate' script defined in packages/api/package.json
-    pnpm --filter api db:migrate
+    cd server
+    pnpm migrate
+    cd ..
     ```
 
-    *Note: You only need to run this initially and whenever you add new migration files to `packages/api/migrations`.* -->
+    _Note: You only need to run this initially._
 
 ## Running the Application (Development Mode)
 
@@ -98,7 +101,7 @@ Since this is a monorepo with a separate frontend and backend, you need to run b
   # Assuming you have a 'dev' script in server/package.json like: "dev": "wrangler dev"
   pnpm dev
   ```
-  
+
 - The API server will typically start on `http://localhost:8787`.
 
 **Terminal 2: Start the Frontend Development Server**
