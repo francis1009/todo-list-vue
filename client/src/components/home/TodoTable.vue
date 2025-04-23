@@ -5,7 +5,7 @@ import type {
 	VisibilityState,
 } from "@tanstack/vue-table";
 import type { Todo } from "@/types/todo";
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, watchEffect } from "vue";
 import {
 	Table,
 	TableBody,
@@ -26,62 +26,17 @@ import { valueUpdater } from "@/lib/utils";
 import { columns } from "@/components/home/columns";
 import TableFilters from "@/components/home/TableFilters.vue";
 import TablePagination from "@/components/home/TablePagination.vue";
+import { useTodoQuery } from "@/composables/queries/todo";
 
 const data = ref<Todo[]>([]);
-async function getData(): Promise<Todo[]> {
-	// Fetch data from your API here.
-	return [
-		{
-			id: "1",
-			task: "Do one thing",
-			status: "todo",
-			priority: "high",
-			createdAt: new Date(),
-		},
-		{
-			id: "2",
-			task: "Do another thing",
-			status: "completed",
-			priority: "medium",
-			createdAt: new Date(),
-		},
-		{
-			id: "3",
-			task: "Do yet another thing",
-			status: "todo",
-			priority: "low",
-			createdAt: new Date(),
-		},
-		{
-			id: "4",
-			task: "A very long task name that exceeds the width of the column and messes up the layout and then it goes to the next line and it is very annoying and I don't like it at all and I want to fix it but I don't know how to do it",
-			status: "in-progress",
-			priority: "high",
-			createdAt: new Date(),
-		},
-		{
-			id: "5",
-			task: "Do something else",
-			status: "todo",
-			priority: "medium",
-			createdAt: new Date(),
-		},
-		{
-			id: "6",
-			task: "Do yet another thing",
-			status: "completed",
-			priority: "low",
-			createdAt: new Date(),
-		},
-		{
-			id: "7",
-			task: "Do something else",
-			status: "todo",
-			priority: "high",
-			createdAt: new Date(),
-		},
-	];
-}
+const { getTodos } = useTodoQuery();
+const { data: queryData } = getTodos();
+
+watchEffect(() => {
+	if (queryData.value) {
+		data.value = [...queryData.value];
+	}
+});
 
 const sorting = ref<SortingState>([]);
 const columnFilters = ref<ColumnFiltersState>([]);
@@ -120,10 +75,6 @@ const table = useVueTable({
 			return columnVisibility.value;
 		},
 	},
-});
-
-onMounted(async () => {
-	data.value = await getData();
 });
 
 defineExpose({

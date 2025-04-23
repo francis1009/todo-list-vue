@@ -42,7 +42,11 @@ const openEditDialog = () => {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
-				<DropdownMenuItem @click="openEditDialog">Edit Task</DropdownMenuItem>
+				<DropdownMenuItem
+					@click="openEditDialog"
+					:hidden="todo.status === 'completed'"
+					>Edit Task</DropdownMenuItem
+				>
 				<DropdownMenuSub>
 					<DropdownMenuSubTrigger>Update Status</DropdownMenuSubTrigger>
 					<DropdownMenuSubContent>

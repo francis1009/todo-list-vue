@@ -5,7 +5,7 @@ export async function fetcher(
 	options: Options = {},
 ): Promise<KyResponse> {
 	try {
-		return await ky(import.meta.env.VITE_API_URL + endpoint, options);
+		return await ky("http://127.0.0.1:8787" + endpoint, options);
 	} catch (err: any) {
 		const error = err as HTTPError;
 		const parseErr = (await error.response.json()) as { error: string };

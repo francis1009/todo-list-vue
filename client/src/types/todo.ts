@@ -5,3 +5,13 @@ export interface Todo {
 	priority: "low" | "medium" | "high";
 	createdAt: Date;
 }
+
+export interface CreateTodoBody {
+	task: string;
+	priority?: "low" | "medium" | "high";
+}
+
+export interface UpdateTodoBody {
+	task?: string;
+	priority?: "low" | "medium" | "high";
+}

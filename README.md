@@ -86,7 +86,7 @@ Follow these steps to set up the project locally:
     cd ..
     ```
 
-    _Note: You only need to run this initially._
+    _Note: You only need to run this once initially._
 
 ## Running the Application (Development Mode)
 
@@ -98,7 +98,6 @@ Since this is a monorepo with a separate frontend and backend, you need to run b
 
   ```bash
   cd server
-  # Assuming you have a 'dev' script in server/package.json like: "dev": "wrangler dev"
   pnpm dev
   ```
 
@@ -110,7 +109,6 @@ Since this is a monorepo with a separate frontend and backend, you need to run b
 
   ```bash
   cd client
-  # Assuming you have a 'dev' script in client/package.json like: "dev": "vite"
   pnpm dev
   ```
 
