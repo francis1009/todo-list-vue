@@ -1,17 +1,11 @@
 import { h } from "vue";
 import type { ColumnDef } from "@tanstack/vue-table";
-import { ChevronsUpDown, MoreHorizontal } from "lucide-vue-next";
-
+import { ChevronsUpDown } from "lucide-vue-next";
 import type { Todo } from "@/types/todo";
 import { statuses, priorities } from "@/types/fields";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import ActionColumn from "@/components/home/ActionColumn.vue";
 
 export const columns: ColumnDef<Todo>[] = [
 	{
@@ -124,40 +118,9 @@ export const columns: ColumnDef<Todo>[] = [
 	{
 		id: "actions",
 		enableHiding: false,
-		cell: () => {
-			return h(
-				"div",
-				{ class: "relative" },
-				h(DropdownMenu, () => [
-					h(DropdownMenuTrigger, { asChild: true }, () =>
-						h(
-							Button,
-							{
-								variant: "ghost",
-								class: "h-8 w-8 p-0 data-[state=open]:bg-muted",
-							},
-							() => [
-								h("span", { class: "sr-only" }, "Open menu"),
-								h(MoreHorizontal, { class: "h-4 w-4" }),
-							],
-						),
-					),
-					h(DropdownMenuContent, { align: "end" }, () => [
-						h(
-							DropdownMenuItem,
-							{
-								/* Add Edit Logic */
-							},
-							"Edit Task",
-						),
-						h(
-							DropdownMenuItem,
-							{ class: "text-red-600" /* Add Delete Logic */ },
-							"Delete Task",
-						),
-					]),
-				]),
-			);
+		cell: ({ row }) => {
+			const todo = row.original;
+			return h("div", { class: "relative" }, h(ActionColumn, { todo }));
 		},
 	},
 ];

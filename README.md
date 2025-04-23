@@ -11,7 +11,6 @@ This project utilizes a modern tech stack within a `pnpm` monorepo structure:
 **Frontend (`/client`):**
 
 - **Framework:** [Vue 3](https://vuejs.org/) (powered by [Vite](https://vitejs.dev/))
-- **State Management:** [Pinia](https://pinia.vuejs.org/)
 - **Data Fetching/Server Cache:** [Tanstack Query (Vue Query)](https://tanstack.com/query/latest/docs/vue/overview)
 - **UI Components:** [Shadcn-vue](https://www.shadcn-vue.com/) (using [Tailwind CSS](https://tailwindcss.com/))
 - **Data Table Management:** [TanStack Table (Vue Table)](https://tanstack.com/table/v8/docs/guide/introduction)
