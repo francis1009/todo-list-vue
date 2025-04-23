@@ -9,7 +9,7 @@ export const dbMiddleware = (): MiddlewareHandler => {
 		if (!env.DB) {
 			return c.json(
 				{ error: "Internal Server Error: DB Binding Missing" },
-				500
+				500,
 			);
 		}
 

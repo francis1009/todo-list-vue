@@ -17,7 +17,7 @@ app.notFound((c) => {
 			error: "Not Found",
 			message: `Route ${c.req.method} ${c.req.path} not found.`,
 		},
-		404
+		404,
 	);
 });
 app.onError((err, c) => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -13,12 +13,13 @@ import {
 	DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-vue-next";
-import type { Todo } from "@/types/todo";
+import type { Todo, status } from "@/types/todo";
 import { statuses } from "@/types/fields";
 import EditTask from "@/components/home/EditTask.vue";
 import { toast } from "vue-sonner";
+import { useTodoMutate } from "@/composables/mutations/todo";
 
-defineProps<{
+const props = defineProps<{
 	todo: Todo;
 }>();
 
@@ -26,6 +27,23 @@ const isEditDialogOpen = ref(false);
 const openEditDialog = () => {
 	isEditDialogOpen.value = true;
 };
+const selectedStatus = ref<status>(props.todo.status);
+
+const { updateTodoStatusMutation } = useTodoMutate();
+
+watch(selectedStatus, async (newStatus, oldStatus) => {
+	if (newStatus && newStatus !== oldStatus && newStatus !== props.todo.status) {
+		try {
+			await updateTodoStatusMutation.mutateAsync({
+				id: props.todo.id,
+				status: newStatus,
+			});
+			toast.success("Status has been updated successfully!");
+		} catch {
+			toast.error("Failed to update status.");
+		}
+	}
+});
 </script>
 
 <template>
@@ -50,12 +68,13 @@ const openEditDialog = () => {
 				<DropdownMenuSub>
 					<DropdownMenuSubTrigger>Update Status</DropdownMenuSubTrigger>
 					<DropdownMenuSubContent>
-						<DropdownMenuRadioGroup :value="todo.status">
+						<DropdownMenuRadioGroup v-model="selectedStatus">
 							<DropdownMenuRadioItem
 								v-for="status in statuses"
 								:key="status.value"
 								:value="status.value"
 								class="p-2"
+								:hidden="status.value === todo.status"
 							>
 								{{ status.label }}
 							</DropdownMenuRadioItem>

@@ -32,7 +32,7 @@ export const todoService = {
 	updateTodo: async (
 		id: number,
 		body: UpdateTodoBody,
-		db: Kysely<Database>
+		db: Kysely<Database>,
 	) => {
 		const result = await db
 			.updateTable("todo")
@@ -47,30 +47,34 @@ export const todoService = {
 		return result;
 	},
 
+	updateTodoStatus: async (
+		id: number,
+		body: { status: string },
+		db: Kysely<Database>,
+	) => {
+		const result = await db
+			.updateTable("todo")
+			.set({
+				status: body.status,
+				updated_at: new Date().toISOString(),
+			})
+			.where("id", "=", id)
+			.returningAll()
+			.executeTakeFirst();
+		return result;
+	},
+
 	deleteTodos: async (
 		body: DeleteTodosBody,
-		db: Kysely<Database>
+		db: Kysely<Database>,
 	): Promise<boolean> => {
 		if (!body.ids || body.ids.length === 0) {
 			throw new Error("No IDs provided for deletion");
 		}
 
-		let idsToDelete: number[];
-		try {
-			idsToDelete = body.ids.map((idStr) => {
-				const num = Number(idStr);
-				if (isNaN(num)) {
-					throw new Error(`Invalid non-numeric ID found: "${idStr}"`);
-				}
-				return num;
-			});
-		} catch (error: any) {
-			throw new Error("Invalid ID format provided.");
-		}
-
 		const result = await db
 			.deleteFrom("todo")
-			.where("id", "in", idsToDelete)
+			.where("id", "in", body.ids)
 			.executeTakeFirst();
 		const success = Number(result?.numDeletedRows ?? 0) > 0;
 		return success;

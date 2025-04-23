@@ -1,17 +1,20 @@
+export type priority = "low" | "medium" | "high";
+export type status = "todo" | "in-progress" | "completed" | "cancelled";
+
 export interface Todo {
 	id: string;
 	task: string;
-	status: "todo" | "in-progress" | "completed" | "cancelled";
-	priority: "low" | "medium" | "high";
+	status: status;
+	priority: priority;
 	createdAt: Date;
 }
 
 export interface CreateTodoBody {
 	task: string;
-	priority?: "low" | "medium" | "high";
+	priority?: priority;
 }
 
 export interface UpdateTodoBody {
 	task?: string;
-	priority?: "low" | "medium" | "high";
+	priority?: priority;
 }

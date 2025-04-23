@@ -43,19 +43,32 @@ export function useTodoAPI() {
 		return response.json<Todo>();
 	};
 
+	const updateStatus = async (id: string, status: string) => {
+		const response = await fetcher(`/todo/update/${id}/status`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ status }),
+		});
+		if (!response.ok) {
+			throw new Error("Network response was not ok");
+		}
+		return response.json<Todo>();
+	};
+
 	const remove = async (ids: string[]) => {
 		const response = await fetcher(`/todo/delete`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(ids),
+			body: JSON.stringify({ ids }),
 		});
 		if (!response.ok) {
 			throw new Error("Network response was not ok");
 		}
-		return response.json<{ success: boolean }>();
 	};
 
-	return { getAll, create, update, remove };
+	return { getAll, create, update, updateStatus, remove };
 }

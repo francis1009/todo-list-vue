@@ -27,10 +27,12 @@ import { columns } from "@/components/home/columns";
 import TableFilters from "@/components/home/TableFilters.vue";
 import TablePagination from "@/components/home/TablePagination.vue";
 import { useTodoQuery } from "@/composables/queries/todo";
+import { useTodoMutate } from "@/composables/mutations/todo";
 
 const data = ref<Todo[]>([]);
 const { getTodos } = useTodoQuery();
 const { data: queryData } = getTodos();
+const { deleteTodoMutation } = useTodoMutate();
 
 watchEffect(() => {
 	if (queryData.value) {
@@ -81,11 +83,11 @@ defineExpose({
 	getNumberOfSelectedRows: (): number => {
 		return table.getSelectedRowModel().rows.length;
 	},
-	deleteSelectedRows: () => {
+	deleteSelectedRows: async () => {
 		const selectedIds = table
 			.getSelectedRowModel()
 			.rows.map((row) => row.original.id);
-		data.value = data.value.filter((todo) => !selectedIds.includes(todo.id));
+		await deleteTodoMutation.mutateAsync(selectedIds);
 		table.resetRowSelection();
 	},
 	hasSelectedRows: computed(() => {

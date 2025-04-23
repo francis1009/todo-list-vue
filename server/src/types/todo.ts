@@ -9,5 +9,5 @@ export interface UpdateTodoBody {
 }
 
 export interface DeleteTodosBody {
-	ids: string[];
+	ids: number[];
 }

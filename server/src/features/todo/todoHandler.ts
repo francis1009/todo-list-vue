@@ -45,6 +45,25 @@ export const todoHandler = {
 		}
 	},
 
+	updateTodoStatus: async (c: Context) => {
+		const id = Number(c.req.param("id"));
+		const db = c.get("db");
+		if (!db) throw new HTTPException(500, { message: "DB connection error" });
+
+		try {
+			const body = await c.req.json();
+			const updatedTodo = await todoService.updateTodoStatus(id, body, db);
+			if (!updatedTodo) {
+				throw new HTTPException(404, { message: "Todo not found for update" });
+			}
+			return c.json(updatedTodo);
+		} catch (error: any) {
+			throw new HTTPException(400, {
+				message: error.message || "Failed to update todo",
+			});
+		}
+	},
+
 	deleteTodos: async (c: Context) => {
 		const db = c.get("db");
 		if (!db) throw new HTTPException(500, { message: "DB connection error" });
