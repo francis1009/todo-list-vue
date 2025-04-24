@@ -8,7 +8,6 @@ import type {
 
 export const todoService = {
 	getAllTodos: async (db: Kysely<Database>) => {
-		console.log(db);
 		return await db
 			.selectFrom("todo")
 			.selectAll()

@@ -50,7 +50,7 @@ const updateTodo = async () => {
 		priorityInput.value = "low";
 		openDialog.value = false;
 	} catch (error) {
-		console.error("Error adding new task:", error);
+		toast.error("Error adding new task:", error);
 	}
 };
 </script>

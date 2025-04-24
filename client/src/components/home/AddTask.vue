@@ -40,7 +40,7 @@ const addNewTodo = async () => {
 		priorityInput.value = "low";
 		isDialogOpen.value = false;
 	} catch (error) {
-		console.error("Error adding new task:", error);
+		toast.error("Error adding new task:", error);
 	}
 };
 

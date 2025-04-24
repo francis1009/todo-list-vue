@@ -11,7 +11,6 @@ export const todoHandler = {
 	},
 
 	createTodo: async (c: Context) => {
-		console.log("Handler: createTodo");
 		const db = c.get("db");
 		if (!db) throw new HTTPException(500, { message: "DB connection error" });
 
