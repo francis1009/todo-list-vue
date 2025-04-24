@@ -4,6 +4,8 @@ This is a simple Todo List web application built as a monorepo for local develop
 
 **This project is intended for local development only and is not set up for deployment.**
 
+![Project Preview](imgs/preview.jpg)
+
 ## Tech Stack
 
 This project utilizes a modern tech stack within a `pnpm` monorepo structure:
